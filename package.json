@@ -1,6 +1,6 @@
 {
   "name": "@mrprim/tile-bag",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel ./src -d ./lib & cp -r ./src/data ./lib/data",
