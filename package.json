@@ -34,5 +34,12 @@
     "url": "https://github.com/mrprim/blind-bag/issues"
   },
   "homepage": "https://github.com/mrprim/blind-bag#readme",
-  "description": ""
+  "description": "A library for creating a digital token bag which you can use to draw random tiles, tokens, cards or other items.",
+  "keywords": [
+    "randomizer",
+    "rpg",
+    "spell-the-rpg",
+    "scrabble",
+    "bananagrams"
+  ]
 }
