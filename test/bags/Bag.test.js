@@ -1,4 +1,4 @@
-import Bag from './Bag'
+import Bag from '../../src/bags/Bag'
 
 describe('SpellRPGBag', () => {
   it('the big test', () => {

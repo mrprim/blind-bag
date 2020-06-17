@@ -1,4 +1,4 @@
-import convert from './convertDistributionToSet'
+import convert from '../../src/utils/convertDistributionToSet'
 
 describe('convertDistributionToSet', () => {
   it('the big test', () => {

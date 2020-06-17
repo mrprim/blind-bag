@@ -1,12 +1,14 @@
 {
-  "name": "tile-bag",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@mrprim/tile-bag",
+  "version": "0.0.1",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "babel ./src -d ./build",
-    "test": "jest"
+    "build": "babel ./src -d ./lib & cp -r ./src/data ./lib/data",
+    "test": "jest /test/*"
   },
+  "files": [
+    "/lib"
+  ],
   "author": "Sergio Rodriguez <the.sergio.rodriguez@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -22,5 +24,15 @@
     "env": [
       "jest"
     ]
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrprim/blind-bag.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mrprim/blind-bag/issues"
+  },
+  "homepage": "https://github.com/mrprim/blind-bag#readme",
+  "description": ""
 }

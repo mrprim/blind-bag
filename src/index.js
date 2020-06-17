@@ -9,3 +9,5 @@ export {
   BananagramsBag,
   SpellRPGBag
 }
+
+export default 't'
