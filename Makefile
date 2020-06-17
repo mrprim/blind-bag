@@ -13,7 +13,7 @@ build: clean install
 patch:
 	npm version patch
 	git add ./package.json
-	git commit -q -m "Step up version"
+	git commit --no-status -m "Step up version"
 
 deploy: build patch
 	npm publish
