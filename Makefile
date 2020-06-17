@@ -6,6 +6,8 @@ install:
 clean:
 	rm -rf node_modules
 	rm -rf lib
+	mkdir ./lib
+	mkdir ./lib/data
 
 build: clean install
 	npm run build
