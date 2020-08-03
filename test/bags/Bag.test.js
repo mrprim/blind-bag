@@ -13,5 +13,8 @@ describe('SpellRPGBag', () => {
     expect(a.count()).toBe(6)
     a.discard('poop')
     expect(a.count()).toBe(7)
+    const rslt = a.draw(18)
+    expect(a.count()).toBe(0)
+    expect(rslt.length).toBe(7)
   })
 })

@@ -9,6 +9,10 @@ export default (...data) => {
     draw: (number = 1) => {
       const result = []
       for (let i = 0; i < number; i++) {
+        if (!contents.length) {
+          continue
+        }
+
         result.push(contents.splice(getRandomInt(contents.length), 1)[0])
       }
 

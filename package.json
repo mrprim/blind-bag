@@ -9,7 +9,7 @@
   "files": [
     "/lib"
   ],
-  "author": "Sergio Rodriguez <the.sergio.rodriguez@gmail.com>",
+  "author": "Sergio Rodriguez",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.10.1",
