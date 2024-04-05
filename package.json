@@ -25,7 +25,9 @@
       "jest"
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "typescript": "^5.4.4"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mrprim/blind-bag.git"
