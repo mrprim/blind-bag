@@ -1,32 +1,21 @@
 {
   "name": "@mrprim/tile-bag",
-  "version": "0.0.17",
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "babel ./src -d ./lib & cp -r ./src/data ./lib",
-    "test": "jest /test/*"
-  },
-  "files": [
-    "/lib"
-  ],
   "author": "Sergio Rodriguez",
   "license": "MIT",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.2",
-    "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
-    "@babel/runtime": "^7.10.2",
-    "jest": "^26.0.1",
-    "standard": "^14.3.4"
-  },
-  "standard": {
-    "env": [
-      "jest"
-    ]
-  },
-  "dependencies": {
-    "typescript": "^5.4.4"
+    "@modyfi/vite-plugin-yaml": "^1.1.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vitest": "^1.4.0"
   },
   "repository": {
     "type": "git",
@@ -43,5 +32,6 @@
     "spell-the-rpg",
     "scrabble",
     "bananagrams"
-  ]
+  ],
+  "dependencies": {}
 }

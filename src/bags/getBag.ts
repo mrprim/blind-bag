@@ -1,13 +1,15 @@
+import schemas from "../data/schemas"
+
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max))
 
-export default (...data) => {
-  let all = [...data]
+const getBag = (arg: BagType | string[]): Bag => {
+  let all = typeof arg === 'string' ? schemas[arg].all() : [...arg]; 
   let contents = [...all]
 
   return {
     count: () => contents.length,
     draw: (number = 1) => {
-      const result = []
+      const result: string[] = []
       for (let i = 0; i < number; i++) {
         if (!contents.length) {
           continue
@@ -30,3 +32,5 @@ export default (...data) => {
     }
   }
 }
+
+export default getBag;
