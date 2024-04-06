@@ -3,7 +3,7 @@
   "author": "Sergio Rodriguez",
   "license": "MIT",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "./dist/blind-bag.umd.js",
   "module": "./dist/blind-bag.es.js",
