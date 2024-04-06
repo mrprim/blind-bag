@@ -1,0 +1,99 @@
+@font-face {
+  font-family: dicier;
+  src: url(public/fonts/Dicier-Round-Dark.woff2);
+}
+@font-face {
+  font-family: roboto;
+  src: url(public/fonts/RobotoSlab-Regular.ttf);
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  --black: rgb(26, 25, 25);
+  --tan: rgb(241, 229, 209);
+  --dark-tan: rgb(221, 172, 131);
+}
+
+* {
+  font-family: roboto;
+}
+
+
+#app {
+  background: var(--tan);
+  color: var(--black);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  --border-style: solid 4px var(--black);
+}
+#main {
+  max-width: 70vw;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+header {
+  text-align: center;
+}
+
+.controls {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+button {
+  display: flex;
+  margin: 4px;
+  border: var(--border-style);
+  text-align: center;
+  height: 80px;
+  width: 80px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background: var(--dark-tan);
+  cursor: pointer;
+}
+
+#hand-wrapper {
+  flex-basis: 66%;
+  max-height: 66%;
+  margin-top: 3em;
+  width: 100%;
+  border: var(--border-style);
+  border-radius: 15px;
+  padding: 2em;
+  background: var(--dark-tan);
+}
+
+#hand {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.component {
+  display: flex;
+  margin: 4px;
+  border: var(--border-style);
+  text-align: center;
+  height: 80px;
+  width: 80px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background: var(--tan);
+}
+.tile {
+  font-size: 3em;
+}
+.card {
+  font-size: 2.5em;
+  font-family: dicier;
+}

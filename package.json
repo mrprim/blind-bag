@@ -5,6 +5,14 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "main": "./dist/blind-bag.umd.js",
+  "module": "./dist/blind-bag.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/blind-bag.es.js",
+      "require": "./dist/blind-bag.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -31,7 +39,8 @@
     "rpg",
     "spell-the-rpg",
     "scrabble",
-    "bananagrams"
-  ],
-  "dependencies": {}
+    "bananagrams",
+    "tarot",
+    "cards"
+  ]
 }

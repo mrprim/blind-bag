@@ -1,4 +1,5 @@
 public/
 src/
+data/
 index.html
 vite.config.ts

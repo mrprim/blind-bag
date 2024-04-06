@@ -1,16 +1,16 @@
 import { defineConfig } from 'vite';
-import ViteYaml from '@modyfi/vite-plugin-yaml';
+import yaml from '@modyfi/vite-plugin-yaml';
 
 export default defineConfig({
   build: {
     lib: {
       entry: 'src/main.ts',
-      name: 'percentage',
-      fileName: 'percentage',
+      name: 'bling-bag',
+      fileName: (format) => `blind-bag.${format}.js`
     }
   },
   plugins: [
-    ViteYaml(), // you may configure the plugin by passing in an object with the options listed below
+    yaml(),
   ],
 
 });
