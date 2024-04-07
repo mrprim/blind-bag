@@ -4,7 +4,7 @@ import spellRpg from '../../data/spell-rpg.set.yaml';
 import bicycleCards from '../../data/bicycle-cards.set.yaml';
 import minorArcana from '../../data/minor-arcana.set.yaml';
 import majorArcana from '../../data/major-arcana.set.yaml';
-import parseSchema from './parseSchema';
+import parseDefinition from './parseDefinition';
 import { Token, TokenType } from '../tokens';
 
 type TokenSetName = 'bananagrams'
@@ -34,7 +34,7 @@ const tokenTypeMap: Record<TokenSetName, TokenType> = {
 }
 
 const buildTokenSet = (name: TokenSetName, data: string[]): TokenSetDefinition => {
-  const tokens = parseSchema(data.flatMap(d => d) as string[]);
+  const tokens = parseDefinition(data.flatMap(d => d) as string[]);
 
   return {
     name,
