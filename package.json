@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && cp ./dist/blind-bag.es.js ./docs/scripts",
     "preview": "vite preview",
     "test": "vitest",
     "publish-to-npm": "yarn build && npm version patch && npm publish"

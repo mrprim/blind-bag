@@ -1,10 +1,10 @@
 @font-face {
   font-family: dicier;
-  src: url(./assets/fonts/Dicier-Round-Dark.woff2);
+  src: url(assets/fonts/Dicier-Round-Dark.woff2);
 }
 @font-face {
   font-family: roboto;
-  src: url(./assets/fonts/RobotoSlab-Regular.ttf);
+  src: url(assets/fonts/RobotoSlab-Regular.ttf);
 }
 html, body {
   height: 100%;
