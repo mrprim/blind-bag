@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blind Bag</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <div id="app">
+      <div id="main">
+        <header>
+          <h1>BLIND BAG</h1>
+        </header>
+        <div class="controls">
+          <button id="draw-letter" class="tile">
+            A
+          </button>
+          <button id="draw-card" class="card">
+            SPADES
+          </button>
+        </div>
+        <div id="hand-wrapper">
+          <div id="hand"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { scrabble, bicycle } from "./scripts/blind-bag.es.js"
+
+      const handEl = document.getElementById('hand')
+      const drawCardEl = document.getElementById('draw-card')
+      const drawLetterEl = document.getElementById('draw-letter')
+
+      const bag = scrabble();
+      const deck = bicycle();
+
+      const toEl = (type, value) => `<span class="component ${type}">${value === 'BLANK' ? '' : value}</span>`;
+
+      let components = [
+        ...[ 'A', 'B', 'BLANK'].map(c => toEl('tile', c)),
+        ...['FIVE_DIAMONDS', 'JACK_HEARTS'].map(c => toEl('card', c)),
+      ]
+
+      const updateComponents = () => {
+        handEl.innerHTML =
+          components.join('') ?? 'none'
+      }
+
+      
+      const drawComponent = (collection) => {
+        const component = collection.drawOne();
+
+        if(!component) return;
+
+        const el = toEl(collection.tokenSet.tokenType, component)
+
+        components = [ ...components, el]
+        updateComponents();
+        handEl.scrollTop = handEl.scrollHeight;
+      }
+
+      const returnComponent = (collection) => {
+        const component = collection.drawOne();
+
+        if(!component) return;
+
+        const el = toEl(collection.tokenSet.tokenType, component)
+
+        components = [ ...components, el]
+        updateComponents();
+        handEl.scrollTop = handEl.scrollHeight;
+      }
+
+
+      drawLetterEl.addEventListener('click', () => {
+        drawComponent(bag)
+      })
+
+      drawCardEl.addEventListener('click', () => {
+        drawComponent(deck)
+      })
+
+      updateComponents()
+    </script>
+  </body>
+</html>
