@@ -4,6 +4,7 @@ import { Token } from "../tokens";
 
 interface Bag extends Collection {};
 
+
 type Arg = TokenSetName | Token[];
 
 const bag = (arg: Arg): Bag => {
