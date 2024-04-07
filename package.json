@@ -2,7 +2,7 @@
   "name": "@mrprim/tile-bag",
   "author": "Sergio Rodriguez",
   "license": "MIT",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "main": "./dist/blind-bag.umd.js",
   "module": "./dist/blind-bag.es.js",
