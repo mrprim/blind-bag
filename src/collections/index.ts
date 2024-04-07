@@ -1,9 +1,19 @@
-import { Collection } from "../collections";
 import tokenSets, { TokenSetDefinition, TokenSetName } from "../tokenSets";
 import { Token } from "../tokens";
 import { filterNulls } from "../utils/array";
 import { getRandomInt } from "../utils/random";
-import { createCollectionStore } from "./store";
+import { CollectionStore, createCollectionStore } from "./store";
+
+type DrawOne = () => Token | null;
+
+interface Collection {
+  tokenSet: TokenSetDefinition,
+  store: CollectionStore,
+  drawOne: DrawOne;
+  draw: (count: number, putBackAfterDraw: boolean) => Token[];
+  refill: () => void;
+  replace: (item: Token | Token[]) => void;
+}
 
 type Arg = TokenSetName | Token[];
 
@@ -25,35 +35,29 @@ const collection = (arg: Arg): Collection => {
   const store = createCollectionStore({ tokenSetName: tokenSet.name, contents: [...tokenSet.tokens], drawn: [] })
 
   const drawOne = () => {
-    const contentLength = store.getContentLength();
+    const contentLength = store.getContents().length
     const tokenIndex = getRandomInt(contentLength) - 1;
     const token = store.getContents()[tokenIndex];
 
     if(!token) return null;
 
-    store.setState((state) => ({
-      ...state,
-      contents: state.contents.filter((_, i) => i !== tokenIndex),
-      drawn: [...state.drawn, token] 
-    }));
+    store.setContents(contents => contents.filter((_, i) => i !== tokenIndex)),
+    store.setDrawn(drawn => [...drawn, token]); 
 
     return token;
   }
 
   return {
     tokenSet,
-    count: () => store.getContentLength(),
-    contents: () => store.getContents(),
-    drawn: () => store.getState((state) => [ ...state.drawn ]),
+    store,
     drawOne,
     draw: (count = 1) => Array(count).fill(null).map(drawOne).filter(filterNulls),
     refill: () => {
-      store.setState((state) => ({
-        ...state,
-        contents: [ ...state.contents, ...state.drawn]
-      }));
+      const drawn = store.getDrawn();
+      store.setContents(contents => [ ...contents, ...drawn]);
+      store.setDrawn([]);
     },
-    replace: (arg) => {
+    replace: () => {
       // const tokens = getArrayFromArrayOrItem(arg);
 
       // tokens.forEach((t) => {
@@ -66,4 +70,5 @@ const collection = (arg: Arg): Collection => {
   } as const
 }
 
+export type { Collection };
 export default collection;

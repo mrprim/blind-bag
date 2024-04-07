@@ -1,6 +1,6 @@
 const ROW_MATCHER = /\s*(.*)\s+\^(\d+)\s*$/
 
-const parseSchemaRow = (row: string): string[] => {
+const parseDefinitionRow = (row: string): string[] => {
   const match = row.match(ROW_MATCHER); 
 
   const value = match?.[1]?.trim();
@@ -13,7 +13,7 @@ const parseSchemaRow = (row: string): string[] => {
   return Array(count).fill(value);
 };
 
-const parseSchema = (schema: string[]): string[] => schema.flatMap(parseSchemaRow);
+const parseDefinition = (definition: string[]): string[] => definition.flatMap(parseDefinitionRow);
 
-export { parseSchemaRow };
-export default parseSchema;
+export { parseDefinitionRow };
+export default parseDefinition;

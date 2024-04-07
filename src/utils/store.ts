@@ -25,5 +25,5 @@ const createStore = <T>(_state: T): Store<T> => {
   }
 }
 
-export { createStore };
+export { createStore, isSetMutator };
 export type { StateSetter, StateGetter, Store }

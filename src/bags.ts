@@ -1,17 +1,11 @@
-import collection from "./collections/index";
+import bag from "./collections/bag";
 
-const scrabble = () => collection('scrabble')
-const spellRpg = () => collection('spellRpg')
-const bicycle = () => collection('bicycle')
-const majorArcana = () => collection('majorArcana')
-const minorArcana = () => collection('minorArcana')
-const tarot = () => collection('tarot')
+const bananagrams = () => bag('bananagrams')
+const scrabble = () => bag('scrabble')
+const spellRpg = () => bag('spellRpg')
 
 export {
+  bananagrams,
   scrabble,
   spellRpg,
-  bicycle,
-  majorArcana,
-  minorArcana,
-  tarot,
 }
