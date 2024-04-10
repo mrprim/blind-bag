@@ -1,4 +1,40 @@
-const O = [
+const R = (n) => typeof n == "function", p = (n) => {
+  let t = structuredClone(n);
+  return {
+    getState: (E = (S) => S) => structuredClone(E(t)),
+    setState: (E) => {
+      t = structuredClone(R(E) ? E(t) : E);
+    }
+  };
+}, G = {
+  contents: []
+}, l = (n) => {
+  const t = { ...G, ...n }, E = p(t);
+  return {
+    ...E,
+    getContents: () => E.getState((S) => S.contents),
+    setContents: (S) => E.setState((e) => (e.contents = R(S) ? S(e.contents) : S, e))
+  };
+}, C = (n) => !!n, g = (n) => !Array.isArray(n), s = (n) => g(n) ? [n] : n, F = (n) => n.map((t) => ({ value: t, sort: Math.random() })).sort((t, E) => t.sort - E.sort).map(({ value: t }) => t), a = (n) => Math.floor(Math.random() * Math.floor(n)), I = (n) => {
+  const t = n.getContents().length, E = a(t), S = n.getContents()[E];
+  return S ? (n.setContents((e) => e.filter((A, _) => _ !== E)), S) : null;
+}, c = (n) => {
+  const t = l(n ? { contents: n } : null);
+  return {
+    ...t,
+    drawOne: () => I(t),
+    draw: (E = 1) => Array(E).fill(null).map(() => I(t)).filter(C),
+    put: (E) => t.setContents((S) => [...S, ...s(E)]),
+    findAndTake: (E) => {
+      const S = s(E), e = [];
+      return S.forEach((A) => {
+        const _ = t.getState((o) => o.contents.findIndex((T) => T === A));
+        _ < 0 || (e.push(A), t.setContents((o) => (o.splice(_, 1), o)));
+      }), e;
+    },
+    empty: () => t.setContents([])
+  };
+}, B = [
   "A ^13",
   "B ^3",
   "C ^3",
@@ -25,7 +61,7 @@ const O = [
   "X ^2",
   "Y ^3",
   "Z ^2"
-], H = [
+], K = [
   "A ^9",
   "B ^2",
   "C ^2",
@@ -53,7 +89,7 @@ const O = [
   "Y ^2",
   "Z ^1",
   "BLANK ^2"
-], P = [
+], V = [
   "A ^7",
   "B ^3",
   "C ^4",
@@ -81,7 +117,7 @@ const O = [
   "Y ^3",
   "Z ^2",
   "? ^2"
-], U = [
+], m = [
   "ACE_SPADES",
   "TWO_SPADES",
   "THREE_SPADES",
@@ -135,7 +171,7 @@ const O = [
   "QUEEN_HEARTS",
   "KING_HEARTS",
   "JOKER ^2"
-], T = [
+], H = [
   "ACE_WANDS",
   "TWO_WANDS",
   "THREE_WANDS",
@@ -192,7 +228,7 @@ const O = [
   "KNIGHT_SWORDS",
   "QUEEN_SWORDS",
   "KING_SWORDS"
-], c = [
+], u = [
   "THE_FOOL",
   "THE_MAGICIAN",
   "THE_HIGH PRIESTESS",
@@ -215,113 +251,72 @@ const O = [
   "THE_SUN",
   "JUDGEMENT",
   "THE_WORLD"
-], i = /\s*(.*)\s+\^(\d+)\s*$/, W = (E) => {
+], y = /\s*(.*)\s+\^(\d+)\s*$/, k = (n) => {
   var e;
-  const S = E.match(i), t = (e = S == null ? void 0 : S[1]) == null ? void 0 : e.trim(), n = Number(S == null ? void 0 : S[2]);
-  return !n || !t ? [E.trim()] : Array(n).fill(t);
-}, u = (E) => E.flatMap(W), C = {
-  bananagrams: "tile",
-  scrabble: "tile",
-  spellRpg: "tile",
-  bicycle: "card",
-  majorArcana: "card",
-  minorArcana: "card",
-  tarot: "card",
-  custom: "mixed"
-}, o = (E, S) => {
-  const t = u(S.flatMap((n) => n));
-  return {
-    name: E,
-    tokenType: C[E],
-    tokens: t
-  };
-}, L = {
-  name: "custom",
-  tokenType: C.custom,
-  tokens: []
-}, D = {
-  bananagrams: o("bananagrams", O),
-  scrabble: o("scrabble", H),
-  spellRpg: o("spellRpg", P),
-  bicycle: o("bicycle", U),
-  minorArcana: o("minorArcana", T),
-  majorArcana: o("majorArcana", c),
-  tarot: o("tarot", [...T, ...c]),
-  custom: L
-}, I = (E) => !!E, m = (E) => E.map((S) => ({ value: S, sort: Math.random() })).sort((S, t) => S.sort - t.sort).map(({ value: S }) => S), M = (E) => Math.floor(Math.random() * Math.floor(E)), A = (E) => typeof E == "function", b = (E) => {
-  let S = { ...E };
-  return {
-    getState: (t = (n) => n) => t(S),
-    setState: (t) => {
-      S = A(t) ? t(S) : t;
-    }
-  };
-}, d = {
-  tokenSetName: "custom",
-  drawn: [],
-  contents: []
-}, G = (E) => {
-  const S = { ...d, ...E }, t = b(S);
+  const t = n.match(y), E = (e = t == null ? void 0 : t[1]) == null ? void 0 : e.trim(), S = Number(t == null ? void 0 : t[2]);
+  return !S || !E ? [n.trim()] : Array(S).fill(E);
+}, b = (n) => n.flatMap(k), r = (n) => b(n.flatMap((t) => t)), P = r(B), U = r(K), i = r(V), d = r(m), f = r(H), W = r(u), L = r([...H, ...u]), w = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  BANANAGRAMS: P,
+  BICYCLE: d,
+  MAJOR_ARCANA: W,
+  MINOR_ARCANA: f,
+  SCRABBLE: U,
+  SPELL_RPG: i,
+  TAROT: L
+}, Symbol.toStringTag, { value: "Module" })), h = () => c(P), J = () => c(U), Q = () => c(i), Y = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  bananagrams: h,
+  scrabble: J,
+  spellRpg: Q
+}, Symbol.toStringTag, { value: "Module" })), M = (n, t) => n.length === 0 ? -1 : t === "top" ? 0 : t === "bottom" ? n.length - 1 : t === "random" ? a(n.length) : t < n.length ? t : -1, D = (n, t) => {
+  const E = M(n.getContents(), t), S = n.getContents()[E];
+  return S ? (n.setContents((e) => e.filter((A, _) => _ !== E)), S) : null;
+}, O = (n, t) => {
+  const E = M(n.getContents(), t);
+  return n.getContents()[E] ?? null;
+}, N = (n) => {
+  const t = l(n ? { contents: n } : null);
   return {
     ...t,
-    getContents: () => t.getState((n) => n.contents),
-    getDrawn: () => t.getState((n) => n.drawn),
-    setContents: (n) => t.setState((e) => (e.contents = A(n) ? n(e.contents) : n, e)),
-    setDrawn: (n) => t.setState((e) => (e.drawn = A(n) ? n(e.drawn) : n, e))
-  };
-}, p = (E) => typeof E == "string", f = (E) => p(E) ? D[E] : {
-  ...D.custom,
-  tokens: [...E]
-}, l = (E) => {
-  const S = f(E), t = G({ tokenSetName: S.name, contents: [...S.tokens], drawn: [] }), n = () => {
-    const e = t.getContents().length, _ = M(e) - 1, s = t.getContents()[_];
-    return s ? (t.setContents((a) => a.filter((w, R) => R !== _)), t.setDrawn((a) => [...a, s]), s) : null;
-  };
-  return {
-    tokenSet: S,
-    store: t,
-    drawOne: n,
-    draw: (e = 1) => Array(e).fill(null).map(n).filter(I),
-    refill: () => {
-      const e = t.getDrawn();
-      t.setContents((_) => [..._, ...e]), t.setDrawn([]);
+    drawOne: (E = "top") => D(t, E),
+    draw: (E = 1, S = "top") => Array(E).fill(null).map(() => D(t, S)).filter(C),
+    peekOne: (E = "top") => O(t, E),
+    peek: (E = 1, S = "top") => Array(E).fill(null).map(() => O(t, S)).filter(C),
+    put: (E) => t.setContents((S) => [...S, ...s(E)]),
+    findAndTake: (E) => {
+      const S = s(E), e = [];
+      return S.forEach((A) => {
+        const _ = t.getState((o) => o.contents.findIndex((T) => T === A));
+        _ < 0 || (e.push(A), t.setContents((o) => (o.splice(_, 1), o)));
+      }), e;
     },
-    replace: () => {
-    }
+    empty: () => t.setContents([]),
+    shuffle: () => t.setContents((E) => F(E))
   };
-}, N = (E) => ({
-  ...l(E)
-}), g = () => N("bananagrams"), F = () => N("scrabble"), K = () => N("spellRpg"), Q = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, X = () => N(d), x = () => N(W), j = () => N(f), $ = () => N(L), z = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  bananagrams: g,
-  scrabble: F,
-  spellRpg: K
-}, Symbol.toStringTag, { value: "Module" })), r = (E) => {
-  const S = l(E), t = S.store, n = () => {
-    const [e, ..._] = t.getContents();
-    return e ? (t.setContents(_), t.setDrawn((s) => [...s, e]), e) : null;
-  };
-  return {
-    ...S,
-    shuffle: () => t.setContents((e) => m(e)),
-    drawOne: n,
-    draw: (e = 1) => Array(e).fill(null).map(n).filter(I)
-  };
-}, V = () => r("bicycle"), k = () => r("majorArcana"), y = () => r("minorArcana"), B = () => r("tarot"), X = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  bicycle: V,
-  majorArcana: k,
-  minorArcana: y,
-  tarot: B
+  bicycle: X,
+  majorArcana: x,
+  minorArcana: j,
+  tarot: $
 }, Symbol.toStringTag, { value: "Module" }));
 export {
-  Q as bags,
-  g as bananagrams,
-  V as bicycle,
-  X as decks,
-  k as majorArcana,
-  y as minorArcana,
-  F as scrabble,
-  K as spellRpg,
-  B as tarot
+  P as BANANAGRAMS,
+  d as BICYCLE,
+  W as MAJOR_ARCANA,
+  f as MINOR_ARCANA,
+  U as SCRABBLE,
+  i as SPELL_RPG,
+  L as TAROT,
+  Y as bags,
+  h as bananagrams,
+  X as bicycle,
+  z as decks,
+  x as majorArcana,
+  j as minorArcana,
+  J as scrabble,
+  Q as spellRpg,
+  $ as tarot,
+  w as tokenSets
 };

@@ -1,73 +1,33 @@
-import tokenSets, { TokenSetDefinition, TokenSetName } from "../tokenSets";
-import { Token } from "../tokens";
-import { filterNulls } from "../utils/array";
-import { getRandomInt } from "../utils/random";
-import { CollectionStore, createCollectionStore } from "./store";
+import { Token } from "../tokenSets";
+import { createStore, isSetMutator } from "../utils/store";
+import type { StateSetter, Store } from "../utils/store";
 
-type DrawOne = () => Token | null;
-
-interface Collection {
-  tokenSet: TokenSetDefinition,
-  store: CollectionStore,
-  drawOne: DrawOne;
-  draw: (count: number, putBackAfterDraw: boolean) => Token[];
-  refill: () => void;
-  replace: (item: Token | Token[]) => void;
+interface CollectionState {
+  contents: Token[],
 }
 
-type Arg = TokenSetName | Token[];
+const DEFAULT_STATE: CollectionState = {
+  contents: [],
+} as const;
 
-const isTokenSet = (arg: Arg): arg is TokenSetName => typeof arg === 'string';
+interface Collection extends Store<CollectionState> {
+  getContents: () => Token[];
+  setContents: StateSetter<Token[]>;
+};
 
-const getTokenSet = (arg: Arg): TokenSetDefinition => {
-  if (isTokenSet(arg)) {
-    return tokenSets[arg];
-  }
-  
-  return ({
-  ...tokenSets.custom,
-  tokens: [ ...arg],
-});
-}
-
-const collection = (arg: Arg): Collection => {
-  const tokenSet = getTokenSet(arg);
-  const store = createCollectionStore({ tokenSetName: tokenSet.name, contents: [...tokenSet.tokens], drawn: [] })
-
-  const drawOne = () => {
-    const contentLength = store.getContents().length
-    const tokenIndex = getRandomInt(contentLength) - 1;
-    const token = store.getContents()[tokenIndex];
-
-    if(!token) return null;
-
-    store.setContents(contents => contents.filter((_, i) => i !== tokenIndex)),
-    store.setDrawn(drawn => [...drawn, token]); 
-
-    return token;
-  }
+const collection = (_state?: CollectionState | null): Collection => {
+  const state = { ...DEFAULT_STATE, ..._state };
+  const baseStore = createStore(state);
 
   return {
-    tokenSet,
-    store,
-    drawOne,
-    draw: (count = 1) => Array(count).fill(null).map(drawOne).filter(filterNulls),
-    refill: () => {
-      const drawn = store.getDrawn();
-      store.setContents(contents => [ ...contents, ...drawn]);
-      store.setDrawn([]);
-    },
-    replace: () => {
-      // const tokens = getArrayFromArrayOrItem(arg);
+    ...baseStore,
+    getContents: () => baseStore.getState(state => state.contents) as Token[],
+    setContents: (arg) => baseStore.setState(state => {
+      state.contents = isSetMutator(arg) ? arg(state.contents) : arg;
+      return state;
+    }),
 
-      // tokens.forEach((t) => {
-      //   const drawnIndex = contents.findIndex(c => c === t)
-      //   if (!drawnIndex) return;
-      //   drawn = drawn.filter((_, i) => i !== drawnIndex)
-      //   contents.push(t)
-      // })
-    },
-  } as const
+  } as const;
 }
 
 export type { Collection };

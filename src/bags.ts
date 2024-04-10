@@ -1,8 +1,9 @@
 import bag from "./collections/bag";
+import { BANANAGRAMS, SCRABBLE, SPELL_RPG } from "./tokenSets";
 
-const bananagrams = () => bag('bananagrams')
-const scrabble = () => bag('scrabble')
-const spellRpg = () => bag('spellRpg')
+const bananagrams = () => bag(BANANAGRAMS)
+const scrabble = () => bag(SCRABBLE)
+const spellRpg = () => bag(SPELL_RPG)
 
 export {
   bananagrams,

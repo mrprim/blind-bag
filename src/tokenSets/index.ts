@@ -1,66 +1,30 @@
-import bananagrams from '../../data/bananagrams.set.yaml';
-import scrabble from '../../data/scrabble.set.yaml';
-import spellRpg from '../../data/spell-rpg.set.yaml';
-import bicycleCards from '../../data/bicycle-cards.set.yaml';
-import minorArcana from '../../data/minor-arcana.set.yaml';
-import majorArcana from '../../data/major-arcana.set.yaml';
+import bananagramsDef from './data/bananagrams.set.yaml';
+import scrabbleDef from './data/scrabble.set.yaml';
+import spellRpgDef from './data/spell-rpg.set.yaml';
+import bicycleCardsDef from './data/bicycle-cards.set.yaml';
+import minorArcanaDef from './data/minor-arcana.set.yaml';
+import majorArcanaDef from './data/major-arcana.set.yaml';
 import parseDefinition from './parseDefinition';
-import { Token, TokenType } from '../tokens';
+
+type Token = string;
 
 type TokenSetName = 'bananagrams'
-| 'scrabble'
-| 'spellRpg'
-| 'bicycle'
-| 'majorArcana'
-| 'minorArcana'
-| 'tarot'
-| 'custom';
+  | 'scrabble'
+  | 'spellRpg'
+  | 'bicycle'
+  | 'majorArcana'
+  | 'minorArcana'
+  | 'tarot'
+  | 'custom';
 
-interface TokenSetDefinition {
-  name: TokenSetName;
-  tokenType: TokenType;
-  tokens: Token[];
-}
+const buildTokenSet = (data: string[]): Token[] => parseDefinition(data.flatMap(d => d) as string[]);
 
-const tokenTypeMap: Record<TokenSetName, TokenType> = {
-  bananagrams: 'tile',
-  scrabble: 'tile',
-  spellRpg: 'tile',
-  bicycle: 'card',
-  majorArcana: 'card',
-  minorArcana: 'card',
-  tarot: 'card',
-  custom: 'mixed',
-}
+export type { Token, TokenSetName }
 
-const buildTokenSet = (name: TokenSetName, data: string[]): TokenSetDefinition => {
-  const tokens = parseDefinition(data.flatMap(d => d) as string[]);
-
-  return {
-    name,
-    tokenType: tokenTypeMap[name],
-    tokens,
-  } as const
-}
-
-const CUSTOM_TOKEN_SET: TokenSetDefinition = {
-  name: 'custom',
-  tokenType: tokenTypeMap.custom,
-  tokens: [],
-} as const;
-
-// TODO: Figure out this typing issue
-const tokenSets: Record<TokenSetName, TokenSetDefinition> = {
-  bananagrams: buildTokenSet('bananagrams', bananagrams as string[]),
-  scrabble: buildTokenSet('scrabble', scrabble as string[]),
-  spellRpg: buildTokenSet('spellRpg', spellRpg as string[]),
-  bicycle: buildTokenSet('bicycle', bicycleCards as string[]),
-  minorArcana: buildTokenSet('minorArcana', minorArcana as string[]),
-  majorArcana: buildTokenSet('majorArcana', majorArcana as string[]),
-  tarot: buildTokenSet('tarot', [...minorArcana as string[], ...majorArcana as string[]]),
-  custom: CUSTOM_TOKEN_SET,
-};
-
-export type { TokenSetName, TokenSetDefinition }
-export { CUSTOM_TOKEN_SET }
-export default tokenSets;
+export const BANANAGRAMS = buildTokenSet(bananagramsDef as string[])
+export const SCRABBLE = buildTokenSet(scrabbleDef as string[])
+export const SPELL_RPG = buildTokenSet(spellRpgDef as string[])
+export const BICYCLE = buildTokenSet(bicycleCardsDef as string[])
+export const MINOR_ARCANA = buildTokenSet(minorArcanaDef as string[])
+export const MAJOR_ARCANA = buildTokenSet(majorArcanaDef as string[])
+export const TAROT = buildTokenSet([...minorArcanaDef as string[], ...majorArcanaDef as string[]])

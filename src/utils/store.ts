@@ -15,12 +15,12 @@ interface Store<T> {
 const isSetMutator = <T>(value: StateSetterArg<T>): value is StateMutator<T> => typeof value === 'function';
 
 const createStore = <T>(_state: T): Store<T> => {
-  let state = { ..._state };
+  let state = structuredClone(_state);
 
   return {
-    getState: (arg = s => s) => arg(state),
+    getState: (arg = s => s) => structuredClone(arg(state)),
     setState: (arg) => {
-      state = isSetMutator(arg) ? arg(state) : arg;
+      state = structuredClone(isSetMutator(arg) ? arg(state) : arg);
     },
   }
 }
