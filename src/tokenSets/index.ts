@@ -17,7 +17,7 @@ type TokenSetName = 'bananagrams'
   | 'tarot'
   | 'custom';
 
-const buildTokenSet = (data: string[]): Token[] => parseDefinition(data.flatMap(d => d) as string[]);
+const buildTokenSet = (data: string[]): Token[] => parseDefinition(data.flatMap?.(d => d) as string[]);
 
 export type { Token, TokenSetName }
 

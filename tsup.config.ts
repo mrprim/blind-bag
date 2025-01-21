@@ -1,4 +1,5 @@
 import { defineConfig } from "tsup";
+import yaml from "esbuild-plugin-yaml";
 
 export default defineConfig({
   entry: ["src/index.ts"],
@@ -7,7 +8,5 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  loader: {
-    '.yaml': 'file',
-  },
+  esbuildPlugins: [yaml.yamlPlugin({})],
 });
