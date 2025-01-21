@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest";
 import bag from "./bag";
 
 const TEST_ITEMS = ['A', 'A', 'B', 'C'];

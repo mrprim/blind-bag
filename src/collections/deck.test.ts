@@ -1,4 +1,3 @@
-import { describe, expect, it } from "vitest";
 import deck from "./deck";
 
 const TEST_ITEMS = ['A', 'B', 'A', 'C'];
