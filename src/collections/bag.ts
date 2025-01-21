@@ -53,4 +53,5 @@ const bag = (items?: Token[]): Bag => {
   } as const
 }
 
+export type { Bag }
 export default bag;

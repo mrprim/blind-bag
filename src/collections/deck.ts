@@ -75,4 +75,5 @@ const deck = (items?: Token[]): Deck => {
   } as const
 }
 
+export type { Deck }
 export default deck;
